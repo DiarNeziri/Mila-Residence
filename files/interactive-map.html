@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Complex | Mila Residence</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=DM+Serif+Display&family=Gasoek+One&family=Kalnia:wght@363&family=LXGW+Marker+Gothic&family=Pacifico&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Favicon - Multiple sizes for better compatibility -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/logoupd1.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/logoupd1.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/images/logoupd1.png">
+  <link rel="shortcut icon" href="/assets/images/logoupd1.png">
+  <style>
+    .interactive-map-container {
+      position: relative;
+      max-width: 700px;
+      margin: 40px auto;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .main-building-img {
+      width: 100%;
+      display: block;
+    }
+    .svg-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .floor-area {
+      cursor: pointer;
+      opacity: 0.15;
+      transition: opacity 0.2s;
+      pointer-events: all;
+    }
+    .floor-area:hover, .floor-area.active {
+      opacity: 0.45;
+      stroke: #e53935;
+      stroke-width: 2;
+    }
+    .floor-label {
+      font-size: 1.1em;
+      font-family: Arial, sans-serif;
+      fill: #fff;
+      text-shadow: 0 1px 4px #000;
+      pointer-events: none;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 24px;
+      border-radius: 10px;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: auto;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px; right: 16px;
+      font-size: 1.5em;
+      color: #e53935;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <img src="/assets/images/logoupdBlack.png" alt="Mila Residence Logo" id="navbar-logo" />
+      <span>Mila Residence</span>
+    </div>
+    
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <nav class="nav-menu" id="nav-menu">
+      <ul>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="interactive-map.html" class="active" data-i18n="nav.complex">Our Complex</a></li>
+        <li><a href="apartments.html" data-i18n="nav.apartments">Apartments</a></li>
+        <li><a href="amenities.html" data-i18n="nav.amenities">Amenities</a></li>
+        <li><a href="contact.html" data-i18n="nav.contact">Contact Us</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+      <button class="lang-btn" data-lang="en" data-i18n="lang.en">English</button>
+      <button class="lang-btn" data-lang="sq" data-i18n="lang.sq">Shqip</button>
+    </div>
+  </header>
+  <div class="main-content">
+  <main>
+    <h1 style="text-align:center; margin-top:32px;">Interactive Apartment Navigation</h1>
+    <div class="interactive-map-container">
+      <img src="../assets/images/01 MILA Residence_20.07.2024.png" alt="Mila Residence" class="main-building-img" id="mainBuildingImg">
+      <svg class="svg-overlay" viewBox="0 0 1200 1800" id="buildingOverlay">
+        <!-- Example floor overlays (rects, adjust coordinates as needed) -->
+        <rect class="floor-area" x="120" y="1400" width="960" height="120" fill="#e53935" data-floor="1" />
+        <rect class="floor-area" x="120" y="1300" width="960" height="90" fill="#43a047" data-floor="2" />
+        <rect class="floor-area" x="120" y="1220" width="960" height="70" fill="#1e88e5" data-floor="3" />
+        <rect class="floor-area" x="120" y="1140" width="960" height="70" fill="#1e88e5" data-floor="4" />
+        <rect class="floor-area" x="120" y="1060" width="960" height="70" fill="#1e88e5" data-floor="5" />
+        <rect class="floor-area" x="120" y="980" width="960" height="70" fill="#1e88e5" data-floor="6" />
+        <rect class="floor-area" x="120" y="900" width="960" height="70" fill="#1e88e5" data-floor="7" />
+        <rect class="floor-area" x="120" y="820" width="960" height="70" fill="#1e88e5" data-floor="8" />
+        <rect class="floor-area" x="120" y="740" width="960" height="70" fill="#1e88e5" data-floor="9" />
+        <rect class="floor-area" x="120" y="660" width="960" height="70" fill="#1e88e5" data-floor="10" />
+        <rect class="floor-area" x="120" y="580" width="960" height="70" fill="#1e88e5" data-floor="11" />
+        <rect class="floor-area" x="120" y="500" width="960" height="70" fill="#1e88e5" data-floor="12" />
+        <rect class="floor-area" x="120" y="420" width="960" height="70" fill="#1e88e5" data-floor="13" />
+        <rect class="floor-area" x="120" y="340" width="960" height="70" fill="#1e88e5" data-floor="14" />
+        <rect class="floor-area" x="120" y="260" width="960" height="70" fill="#1e88e5" data-floor="15" />
+        <rect class="floor-area" x="120" y="180" width="960" height="70" fill="#1e88e5" data-floor="16" />
+        <text x="600" y="1480" text-anchor="middle" class="floor-label">Floor 1</text>
+        <text x="600" y="1350" text-anchor="middle" class="floor-label">Floor 2</text>
+        <text x="600" y="1270" text-anchor="middle" class="floor-label">Floor 3</text>
+        <text x="600" y="1180" text-anchor="middle" class="floor-label">Floor 4</text>
+        <text x="600" y="1100" text-anchor="middle" class="floor-label">Floor 5</text>
+        <text x="600" y="1020" text-anchor="middle" class="floor-label">Floor 6</text>
+        <text x="600" y="940" text-anchor="middle" class="floor-label">Floor 7</text>
+        <text x="600" y="860" text-anchor="middle" class="floor-label">Floor 8</text>
+        <text x="600" y="780" text-anchor="middle" class="floor-label">Floor 9</text>
+        <text x="600" y="700" text-anchor="middle" class="floor-label">Floor 10</text>
+        <text x="600" y="620" text-anchor="middle" class="floor-label">Floor 11</text>
+        <text x="600" y="540" text-anchor="middle" class="floor-label">Floor 12</text>
+        <text x="600" y="460" text-anchor="middle" class="floor-label">Floor 13</text>
+        <text x="600" y="380" text-anchor="middle" class="floor-label">Floor 14(Penthouse)</text>
+        <text x="600" y="300" text-anchor="middle" class="floor-label">Floor 15(Penthouse)</text>
+        <text x="600" y="220" text-anchor="middle" class="floor-label">Floor 16(Penthouse)</text>
+      </svg>
+    </div>
+    <!-- Modal for floor/room navigation -->
+    <div class="modal" id="floorModal">
+      <div class="modal-content" id="modalContent">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div id="floorPlanContainer">
+          <!-- Floor plan and room overlays will be injected here -->
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer style="background: #7b7b7b; border-top: 1px solid #eee; margin-top: 48px; padding: 32px 0 18px 0; text-align: center;">
+    <div style="margin-bottom: 18px;">
+      <a href="index.html" style="color: #fff; text-decoration: none; margin: 0 14px; font-weight: 600;" data-i18n="nav.home">Home</a>
+      <a href="interactive-map.html" style="color: #fff; text-decoration: none; margin: 0 14px; font-weight: 600;" data-i18n="nav.complex">Our Complex</a>
+      <a href="apartments.html" style="color: #fff; text-decoration: none; margin: 0 14px; font-weight: 600;" data-i18n="nav.apartments">Apartments</a>
+      <a href="amenities.html" style="color: #fff; text-decoration: none; margin: 0 14px; font-weight: 600;" data-i18n="nav.amenities">Amenities</a>
+      <a href="contact.html" style="color: #fff; text-decoration: none; margin: 0 14px; font-weight: 600;" data-i18n="nav.contact">Contact Us</a>
+    </div>
+    <div style="margin-bottom: 16px;">
+      <a href="https://www.facebook.com/mila.residence.2025" target="_blank" style="margin: 0 10px; display: inline-block; vertical-align: middle;">
+        <svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.408.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.408 24 22.674V1.326C24 .592 23.406 0 22.675 0"/></svg>
+      </a>
+      <a href="https://www.instagram.com/mila.residence05" target="_blank" style="margin: 0 10px; display: inline-block; vertical-align: middle;">
+        <svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.241 1.308 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.241 1.246-3.608 1.308-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.241-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608C4.515 2.497 5.782 2.225 7.148 2.163 8.414 2.105 8.794 2.163 12 2.163zm0-2.163C8.741 0 8.332.012 7.052.07 5.771.128 4.659.334 3.678 1.315c-.98.98-1.187 2.092-1.245 3.373C2.012 5.668 2 6.077 2 12c0 5.923.012 6.332.07 7.612.058 1.281.265 2.393 1.245 3.373.98.98 2.092 1.187 3.373 1.245C8.332 23.988 8.741 24 12 24s3.668-.012 4.948-.07c1.281-.058 2.393-.265 3.373-1.245.98-.98 1.187-2.092 1.245-3.373.058-1.28.07-1.689.07-7.612 0-5.923-.012-6.332-.07-7.612-.058-1.281-.265-2.393-1.245-3.373-.98-.98-2.092-1.187-3.373-1.245C15.668.012 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.2-11.162a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" style="margin: 0 10px; display: inline-block; vertical-align: middle;">
+        <svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.327-.027-3.037-1.849-3.037-1.851 0-2.132 1.445-2.132 2.939v5.667H9.358V9h3.414v1.561h.049c.476-.899 1.637-1.849 3.37-1.849 3.602 0 4.267 2.368 4.267 5.455v6.285zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM6.814 20.452H3.861V9h2.953v11.452zM22.225 0H1.771C.792 0 0 .771 0 1.723v20.549C0 23.229.792 24 1.771 24h20.451C23.2 24 24 23.229 24 22.271V1.723C24 .771 23.2 0 22.225 0z"/></svg>
+      </a>
+    </div>
+    <div style="color: #fff; font-size: 1rem;" data-i18n="footer.copyright">&copy; 2025 Mila Residence. All rights reserved.</div>
+  </footer>
+  </div>
+  <!-- i18next Library -->
+  <script src="https://cdn.jsdelivr.net/npm/i18next@23.7.16/dist/umd/i18next.min.js"></script>
+  
+  <!-- Translation files -->
+  <script src="js/translations.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/script.js"></script>
+  
+  <script>
+    // JS for interactive overlays
+    document.querySelectorAll('.floor-area').forEach(area => {
+      area.addEventListener('mouseenter', function() {
+        this.classList.add('active');
+      });
+      area.addEventListener('mouseleave', function() {
+        this.classList.remove('active');
+      });
+      area.addEventListener('click', function() {
+        const floor = this.getAttribute('data-floor');
+        showFloorModal(floor);
+      });
+    });
+    function showFloorModal(floor) {
+      // Example: show a floor plan image and clickable rooms
+      const floorPlans = {
+        '1': '/assets/images/02 Kati 1_MILA_R_02.08.2023.png',
+        '2': '/assets/images/03 MILA Residence_26.09.2024.jpg',
+        '3': '/assets/images/04 MILA Residence_26.09.2024.jpg'
+      };
+      const planImg = floorPlans[floor] || '';
+      let html = '';
+      if (planImg) {
+        html = `<div style="position:relative;max-width:600px;margin:auto;">
+          <img src="${planImg}" alt="Floor ${floor} Plan" style="width:100%;border-radius:8px;">
+          <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 1200 800">
+            <rect x="100" y="200" width="200" height="120" fill="#e53935" opacity="0.2" style="pointer-events:all;cursor:pointer;" onclick="alert('Room 1 on Floor ${floor}')" />
+            <rect x="400" y="200" width="200" height="120" fill="#43a047" opacity="0.2" style="pointer-events:all;cursor:pointer;" onclick="alert('Room 2 on Floor ${floor}')" />
+          </svg>
+        </div>`;
+      } else {
+        html = '<p>No floor plan available.</p>';
+      }
+      document.getElementById('floorPlanContainer').innerHTML = html;
+      document.getElementById('floorModal').style.display = 'flex';
+    }
+    document.getElementById('modalClose').onclick = function() {
+      document.getElementById('floorModal').style.display = 'none';
+      document.getElementById('floorPlanContainer').innerHTML = '';
+    };
+    // Close modal on background click
+    document.getElementById('floorModal').onclick = function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+        document.getElementById('floorPlanContainer').innerHTML = '';
+      }
+    };
+  </script>
+</body>
+</html> 
